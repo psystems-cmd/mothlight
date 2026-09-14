@@ -1,89 +1,100 @@
-<p align="center" style="font-size: 24px; margin-bottom: -25px; color: #EF3B2D;">
-    <strong>Educational<br/> Starter Pack<br/></strong><span style="color:gray">for</span>
-</p>
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MOTHLIGHT
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Idea and Main features
+Mothlight is basically the forum that gets into existence when you cross Reddit with an anonymous forum and Co-Star. It is a place meant to track the dreams of individuals (mainly GenZ) and share it with friends, explore common dream patterns and understand if other people can relate. This is mostly targeted towards communities of friends. Every entry is private, with the option to share it. Usernames are pseudonomised, the owned "dream-collection" as well as the profile stays private. 
+
+As per the scope - for the purpose of the course, there will not be friends, every user is either sharing publicly or is keeping it private. It would be interesting to add this as a self-referencing m:m, and deciding on friedns being mutual or not. 
+The upvotes feature is postponed as well. 
+
+### Models and Rleations
+
+#### User-Dream = 1:M
+- A User hasMany Dreams
+- A Dream belongsTo a User
+~~User-Profile = 1:1~~
+~~- A User hasOne Profile~~
+~~- A Profile belongsTo a User~~
+#### Dream-Comment = 1:M
+- A Dream hasMany Comments
+- A Comment belongsTo a Dream
+#### Dream-Pattern = M:M = dream.pattern
+- A dream belongsToMany Patterns
+- A Pattern belongsToMany Dreams
+User-Comment = 1:M
+- A user hasMany Comments
+- A Comment belongsTo a User
+
+Initial Draft: 
+
+<img width="1326" height="994" alt="image" src="https://github.com/user-attachments/assets/cd3b42c1-ee49-4395-b870-eef666422b57" />
+
+I crossed out what is out of scope, corrected what actually is a foreign key, and a few minor changes - before giving it to Claude for a review and illustration. 
+
+<img width="773" height="364" alt="image" src="https://github.com/user-attachments/assets/8c3ad48f-0b9d-4e21-9181-e87265df8e2f" />
 
 
----
 
-## About this Starter Pack
-<div style="background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-This is a starter pack for <strong>Laravel tailored for educational purposes</strong>. 
+After sparring with Claude:
+User-Profile: as profiles stay private, and the platform uses a pseudonym, there is no need for f_name and l_name which will be deleted from the drawing. 
+Profiles: inthemselver have no use, as they dont have any data themselves. *dropped*
+No need for Category AND pattern: category *dropped*
+Patern was still in "dream" as a string, not a foreign key *changed*; with that it is logically a m:m which is resulting in a pivot table, no foreign keys in the individual tables.*include dream.pattern*
+Also users need "is_admin" as there are 2 user types. 
 
-It is aimed at helping students and beginners to quickly set up a Laravel development environment that allows for 
-learning the basics without the need to configure everything from scratch.
-</div>
+### Routes
+//Public
+- Welcome -> Hello plus Login or Sign Up link
+  
+- dreams.index -> all publicly listed dreams
+- dreams.show (id) -> detail page of one dream; private only dreams result in 403, unless viewer is owner
+  
+- patterns.index -> all patterns appearing on publicly listed dreams
+- patterns.show (id) -> detail page of a pattern, with a list of public dreams tagged with it
 
-### Changes from the original Laravel repository
-It provides a pre-configured environment with some opinionated settings and packages for the educational context. 
-Initial customisation was done based on Laravel version 12.x. (12.37.0 on November 9th, 2025).
-Updated to Laravel 13.x (13.7 on May 4th, 2026), including now also Laravel Boost.
+- About page
+- Contact page
+- 404 Error page
 
-- Added **barryvdh/laravel-debugbar** for debug info in the browser
-- Altered **.env.example** for local development (SQLite database, debug mode on, cache and session set to file)
-- Added **roave/security-advisories** to prevent installation of packages with known security issues
-- Added **laravel/boost** for AI assisted code generation
-- Used **laravel/breeze** for authentication scaffolding with Blade templates (but moved all of the component views to a `components.breeze` subfolder for better organization)
-- Replaced vite and related front-end dependencies by **CDN includes of Tailwind CSS and Alpine JS** to keep things simple
-- Replaced PHP Unit by **Pest PHP** for testing, kept basic example tests
-- Some other small tweaks in configuration files, routes, controller, and view organisation to better reflect the educational purpose (rigid structure)
+- GET login
+- POST login
+- GET register
+- POST register
 
-Everything that follows below (and the shields in the header) are part of the original Laravel README.md file.
+// Logged In 
 
----
-## About Laravel
+- my.dreams.index -> the users diary all the dreams posted themselves
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+// admin (user needs is_admin=true) -> thanks Claude for the remark ;)
+- admin.dashboard
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### CRUD-STUFF
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+//Dream CRUD -> no edit or update, like a diary entry they are written once or destroyed
+- GET my.dreams.create -> return empty to create new dream (logged in from user diary view)
+- POST my.dreams.store -> save input from above create form(logged in from user diary view)
+- DELETE my.dreams.destroy (id) -> delete existing dream(logged in from user diary view)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+// User Comment Section
+- POST dreams.comments.store (dream_id) -> save a new comment to a dream
+- DELETE comments.destroy (id) -> delete a comment (owner or admin for moderation)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-## Agentic Development
+//Dream Moderation
+- GET admin.dreams.index
+- DELETE admin.dreams.destroy (id) -> delete existing dream
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+//User Moderation
+- GET admin.users.index
+- DELETE admin.users.destroy (id) -> delete existing user
 
-```bash
-composer require laravel/boost --dev
+// Pattern CRUD
+- GET admin.patterns.index
+- GET admin.patterns.create -> return empty to create new pattern
+- POST admin.patterns.store
+- DELETE admin.patterns.destroy (id) -> delete existing pattern
 
-php artisan boost:install
-```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
