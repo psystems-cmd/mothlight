@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Welcome</title>
+
+
+
 <body>
 
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
@@ -12,9 +21,17 @@
    (__/ \__)</pre>
     </div>
 
-
-
     <h1 style="color: orange; font-family: Arial, sans-serif; padding: 1em; text-align: center;">Welcome,<br>little moth.</h1>
+
+    <div>
+        <x-breeze.primary-button>
+            Login
+        </x-breeze.primary-button>
+
+        <x-breeze.secondary-button>
+            Signup
+        </x-breeze.secondary-button>
+    </div>
 
 
 </div>
