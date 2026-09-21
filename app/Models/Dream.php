@@ -9,4 +9,10 @@ class Dream extends Model
 {
     /** @use HasFactory<\Database\Factories\DreamFactory> */
     use HasFactory;
+
+
+    public function user(){
+        return ($this->belongsTo(User::class));
+    }
+
 }
