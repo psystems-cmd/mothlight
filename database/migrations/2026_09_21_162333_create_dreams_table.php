@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('dreams', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('title');
+            $table->text('content');
+            $table->boolean('is_public')->default(false);
+            $table->foreignId('user_id')->constrained();
+
         });
     }
 
