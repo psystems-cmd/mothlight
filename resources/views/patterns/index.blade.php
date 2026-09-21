@@ -7,8 +7,9 @@
 @else    
     <ul> 
         @foreach ($patterns as $currentPattern)
-            <li>{{ $currentPattern->name }}</li>
+            <x-breeze.pattern-card>
+                {{ $currentPattern->name }}
+            </x-breeze.pattern-card>
         @endforeach
     </ul> 
-    
 @endif
