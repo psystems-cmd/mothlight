@@ -8,7 +8,9 @@
     <ul> 
         @foreach ($patterns as $currentPattern)
             <x-breeze.pattern-card>
-                {{ $currentPattern->name }}
+                <a href="/patterns/{{ $currentPattern->id }}">
+                    {{ $currentPattern->name }}
+                </a>
             </x-breeze.pattern-card>
         @endforeach
     </ul> 
