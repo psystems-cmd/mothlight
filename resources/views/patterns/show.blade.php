@@ -8,7 +8,7 @@
     <ul>
                     {{-- $dream has no () bc it is not called as a function but as an object --}}
 
-        @foreach ($patternDetails->dreams as $dream)
+        @foreach ($dreams as $dream)
             <li>{{ $dream->title }}</li> 
         
         @endforeach

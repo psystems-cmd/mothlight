@@ -19,11 +19,12 @@ class PatternController extends Controller
     public function show($patternID)
     {
         $pattern = Pattern::findOrFail($patternID);
+        $dreams = $pattern->dreams()->where('is_public', true)->get();
 
         return view('patterns.show', [
             'patternDetails' => $pattern,
+            'dreams' => $dreams,
         ]);
     }
-
-
+    
 }
