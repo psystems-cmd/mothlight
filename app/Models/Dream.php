@@ -10,6 +10,9 @@ class Dream extends Model
     /** @use HasFactory<\Database\Factories\DreamFactory> */
     use HasFactory;
 
+    public function patterns(){
+        return ($this->belongsToMany(Pattern::class));
+    }
 
     public function user(){
         return ($this->belongsTo(User::class));
