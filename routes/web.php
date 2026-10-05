@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatternController;
+use App\Http\Controllers\DreamController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,13 @@ Route::get('/patterns', [PatternController::class, 'index'])
 
 Route::get('/patterns/{patternID}', [PatternController::class, 'show'])
     ->name('patterns.show'); 
+
+
+Route::get('/dreams', [DreamController::class, 'index'])
+    ->name('dreams.index'); //gives an internal nickname to reference from now on for this speific route
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'edit'])->name('profile.edit');
