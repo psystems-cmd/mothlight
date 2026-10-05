@@ -17,7 +17,6 @@ return new class extends Migration
 
             $table->string('title');
             $table->text('description');
-            $table->text('pattern');
             $table->text('tldr');
             $table->boolean('woke_after')->default(false);
             $table->dateTime('dreamt_at');
