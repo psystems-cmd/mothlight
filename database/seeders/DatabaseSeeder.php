@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Mia Maria',
-            'email' => 'mia@mothligh.test',
+            'email' => 'mia@mothlight.test',
             'password' => 'Password3000',
-            //'is_admin' => true
+            'is_admin' => true
         ]);
     
         User::factory(10)->create();
