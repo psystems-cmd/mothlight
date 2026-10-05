@@ -22,9 +22,9 @@ class DreamFactory extends Factory
             //'user_id'=>User::factory(), this is not great - good for frst run but from now on it should be users first and dreams second degree also to show the right relationship
             //'user_id' => fake()->numberBetween(1,11), --> Claude had the Idea to use the existing Users in Random Order to get rid of the risk of deleted users etc in a potential demo with nico 
             'user_id' => User::inRandomOrder()->first()->id, //this now is a real db lookup, nicer than having all fake
-            'title'=>fake()->sentence(),
-            'description'=>fake()->text(),
-            'tldr'=>fake()->sentence(),
+            'title'=>fake()->realText(24),
+            'description'=>fake()->realText(255),
+            'tldr'=>fake()->realText(50),
             'woke_after'=>fake()->boolean(),
             'dreamt_at' => now()->subDays(fake()->numberBetween(1,7))->setTime(fake()->randomElement([22,23,0,1,2,3,4,5,6,7,8]),fake()->randomElement([0,30])), //adds a datetime element to the dream to give a user estimate of when a dream was dreamed, even if recording a few days later. 
             'is_public'=>fake()->boolean(),
