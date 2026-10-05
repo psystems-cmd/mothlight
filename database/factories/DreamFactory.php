@@ -28,6 +28,7 @@ class DreamFactory extends Factory
             'tldr'=>fake()->sentence(),
             'pattern'=>Pattern::inRandomOrder()->first()->name,
             'woke_after'=>fake()->boolean(),
+            'dreamt_at' => now()->subDays(fake()->numberBetween(1,7))->setTime(fake()->randomElement([22,23,0,1,2,3,4,5,6,7,8]),fake()->randomElement([0,30])), //adds a datetime element to the dream to give a user estimate of when a dream was dreamed, even if recording a few days later. 
             'is_public'=>fake()->boolean(),
         ];
     }
