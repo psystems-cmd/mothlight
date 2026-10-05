@@ -16,7 +16,10 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('title');
-            $table->text('content');
+            $table->text('description');
+            $table->text('pattern');
+            $table->text('tldr');
+            $table->boolean('woke_after')->defaul(false);
             $table->boolean('is_public')->default(false);
             $table->foreignId('user_id')->constrained();
 
