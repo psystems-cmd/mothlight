@@ -31,6 +31,15 @@ class DatabaseSeeder extends Seeder
 
         $dreams = Dream::factory()->count(15)->create();
 
+        
+        foreach ($dreams as $currentDream) {
+            $patternIds = Pattern::inRandomOrder()->take(random_int(1,3))->pluck('id');
+            $currentDream -> patterns()->attach($patternIds);
+        };
+
+        
+
+
    /*      User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
