@@ -1,40 +1,30 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.public')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'Mothlight')
 
-    <title>Welcome</title>
+@section('content')
+    <section class="flex min-h-[60vh] flex-col justify-center">
+        <h1 class="max-w-xl font-display text-5xl leading-[1.05] tracking-tight text-dust sm:text-7xl">
+            Welcome,<br>little moth.
+        </h1>
 
-<body>
+        <p class="mt-6 max-w-md text-lg leading-relaxed text-haze">
+            Write down last night's dream before it fades. Keep it to yourself, or share it and find out who else dreams the same.
+        </p>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
-    <!-- next div was created by AI-->
-    <div style="text-align: center; padding-top: 2em;">
-        <pre role="img" aria-label="A moth" style="color: orange; display: inline-block; text-align: left; margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.7rem; line-height: 1.15;">
-  ____   ____
- {  ~ \,/ ~  }
-  \ ~ _|_ ~ /
-   (__/ \__)</pre>
-    </div>
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+            <a href="{{ route('register') }}"
+               class="rounded-full bg-lamp px-6 py-3 font-medium text-night shadow-[0_0_32px_rgba(255,200,97,0.35)] transition hover:bg-[#FFD685] hover:shadow-[0_0_44px_rgba(255,200,97,0.55)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lamp">
+                Sign up
+            </a>
+            <a href="{{ route('login') }}"
+               class="rounded-full border border-haze/40 px-6 py-3 font-medium text-dust transition hover:border-dust focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lamp">
+                Log in
+            </a>
+        </div>
 
-    <h1 style="color: orange; font-family: Arial, sans-serif; padding: 1em; text-align: center;">Welcome,<br>little moth.</h1>
-
-    <div>
-        
-        <x-breeze.primary-button>
-            Login
-        </x-breeze.primary-button>
-
-        <x-breeze.secondary-button>
-            Signup
-        </x-breeze.secondary-button>
-
-    </div>
-
-
-</div>
-
-</body>
-</html>
+        <a href="{{ route('dreams.index') }}" class="mt-8 self-start rounded-sm text-sm text-haze underline decoration-haze/40 underline-offset-4 transition hover:text-dust hover:decoration-dust focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lamp">
+            Read dreams others have shared
+        </a>
+    </section>
+@endsection
