@@ -20,7 +20,7 @@ class DreamFactory extends Factory
     {
         return [
             //'user_id'=>User::factory(), this is not great - good for frst run but from now on it should be users first and dreams second degree also to show the right relationship
-            'user_id' => fake()->numberBetween(0,10), 
+            'user_id' => fake()->numberBetween(1,11), 
             'title'=>fake()->sentence(),
             'content'=>fake()->text(),
             'is_public'=>fake()->boolean(),
