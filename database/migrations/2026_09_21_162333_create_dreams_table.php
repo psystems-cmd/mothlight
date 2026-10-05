@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('pattern');
             $table->text('tldr');
-            $table->boolean('woke_after')->defaul(false);
+            $table->boolean('woke_after')->default(false);
             $table->boolean('is_public')->default(false);
             $table->foreignId('user_id')->constrained();
 
