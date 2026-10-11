@@ -28,6 +28,10 @@ class Dream extends Model
         return ($this->belongsTo(User::class));
     }
 
+    public function comment(){
+        return ($this->hasMany(Comment::class));
+    }
+
 //make the visibility of a dream dependent on the user setting whether its public or private
 
     public function isVisibleTo(?User $user): bool{ //supported by claudinhho for args

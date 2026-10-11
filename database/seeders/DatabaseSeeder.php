@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Pattern;
 use App\Models\Dream;
+use App\Models\Comment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -54,6 +55,8 @@ class DatabaseSeeder extends Seeder
             $currentDream -> patterns()->attach($patternIds);
         };
         
+
+        Comment::factory()->count(40)->create();
 
 
    /*      User::factory()->create([

@@ -50,4 +50,9 @@ class User extends Authenticatable
         return($this->hasMany(Dream::class));
     }
 
+    public function comment(){
+        return ($this->hasMany(Comment::class));
+    }
+
+
 }
