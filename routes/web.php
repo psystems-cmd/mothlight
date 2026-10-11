@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dreams/{dreamID}/edit', [DreamController::class, 'edit'])->name('dreams.edit');
     Route::put('/dreams/{dreamID}', [DreamController::class, 'update'])->name('dreams.update');
     Route::delete('/dreams/{dreamID}', [DreamController::class, 'destroy'])->name('dreams.destroy');
+
+    Route::post('/dreams/{dreamID}/comments', [App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
 });
 
 

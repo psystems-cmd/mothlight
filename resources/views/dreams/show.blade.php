@@ -57,4 +57,18 @@
     <p>No comments yet.</p>
 @endforelse
 
+@auth
+    <form method="POST" action="{{ route('comments.store',  $dreamDetails->id) }}">
+        @csrf
+
+        <label for="content">Add a comment</label>
+        <textarea id="content" name="content" rows="3">{{ old('content') }}</textarea>
+        @error('content') <p>{{ $message }}</p> @enderror
+
+        <button type="submit">Post comment</button>
+    </form>
+@else
+    <p><a href="{{ route('login') }}">Log in</a> to write a comment.</p>
+@endauth
+
 @endsection
