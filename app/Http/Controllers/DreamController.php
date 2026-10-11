@@ -71,6 +71,68 @@ class DreamController extends Controller
         return redirect()->route('dreams.show', $dream->id);
     }
 
+//All of the following now check the `can change` bool. 
 
+    public function edit($dreamID)
+    {
+        $dream = Dream::findOrFail($dreamID);
+
+        if (! $dream->canChange(auth()->user())) {
+            abort(403);
+        }
+
+        $patterns = Pattern::orderBy('name')->get();
+
+        return view('dreams.edit', [
+            'dreamDetails' => $dream,
+            'patterns' => $patterns,
+        ]);
+    }
+
+    public function update(Request $request, $dreamID)
+    {
+        $dream = Dream::findOrFail($dreamID);
+
+        if (! $dream->canChange(auth()->user())) {
+            abort(403);
+        }
+
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'tldr' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'dreamt_at' => ['required', 'date', 'before_or_equal:now'],
+            'woke_after' => ['nullable', 'boolean'],
+            'is_public' => ['nullable', 'boolean'],
+            'patterns' => ['nullable', 'array'],
+            'patterns.*' => ['integer', 'exists:patterns,id'],
+        ]);
+
+        $dream->update([
+            'title' => $request->input('title'),
+            'tldr' => $request->input('tldr'),
+            'description' => $request->input('description'),
+            'dreamt_at' => $request->input('dreamt_at'),
+            'woke_after' => $request->boolean('woke_after'),
+            'is_public' => $request->boolean('is_public'),
+        ]);
+
+        $dream->patterns()->sync($request->input('patterns', []));
+
+        return redirect()->route('dreams.show', $dream->id);
+    }
+
+    public function destroy($dreamID)
+    {
+        $dream = Dream::findOrFail($dreamID);
+
+        if (! $dream->canChange(auth()->user())) {
+            abort(403);
+        }
+
+        $dream->delete();
+
+        return redirect()->route('dashboard');
+    }
 
 }

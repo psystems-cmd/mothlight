@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/dreams/create', [App\Http\Controllers\DreamController::class, 'create'])->name('dreams.create');
     Route::post('/dreams', [App\Http\Controllers\DreamController::class, 'store'])->name('dreams.store');
+
+    Route::get('/dreams/{dreamID}/edit', [DreamController::class, 'edit'])->name('dreams.edit');
+    Route::put('/dreams/{dreamID}', [DreamController::class, 'update'])->name('dreams.update');
+    Route::delete('/dreams/{dreamID}', [DreamController::class, 'destroy'])->name('dreams.destroy');
 });
 
 
