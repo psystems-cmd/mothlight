@@ -1,10 +1,75 @@
+
 # MOTHLIGHT
 
 ### Idea and Main features
 Mothlight is basically the forum that gets into existence when you cross Reddit with an anonymous forum and Co-Star. It is a place meant to track the dreams of individuals (mainly GenZ) and share it with friends, explore common dream patterns and understand if other people can relate. This is mostly targeted towards communities of friends. Every entry is private, with the option to share it. Usernames are pseudonomised, the owned "dream-collection" as well as the profile stays private. 
 
 As per the scope - for the purpose of the course, there will not be friends, every user is either sharing publicly or is keeping it private. It would be interesting to add this as a self-referencing m:m, and deciding on friedns being mutual or not. 
-The upvotes feature is postponed as well. 
+The upvotes feature is postponed as well. ---
+
+-------------- Edit below this line for the purpose of the evaluation prep for you @nico -------------------
+
+## Final version (hand-in)
+
+Everything above is the original plan from assignment 1. This section describes what was actually built, and where and why it differs.
+
+### Logins (seeded)
+
+| Email | Password | Role |
+|---|---|---|
+| admin@admin.com | password | admin -> will also be used to appear in seeded comments, not having own dreams. |
+| mia@mothlight.test | Password3000 | admin, owns 5 dreams |
+
+
+### Models and relations (as built)
+
+- **User**: hasMany Dreams, hasMany Comments. `is_admin` marks admins.
+- **Dream**: belongsTo User, belongsToMany Patterns, hasMany Comments. Fields: title, tldr, description, dreamt_at, woke_after, is_public.
+- **Pattern**: belongsToMany Dreams.
+- **Comment**: belongsTo User, belongsTo Dream.
+- **dream_pattern**: pivot table between dreams and patterns.
+
+Every model has a migration and a factory, and all of them are used in the DatabaseSeeder.
+
+### Rules
+
+Both live in the Dream model:
+
+- `isVisibleTo($user)`: a dream is visible if it is public, or if the viewer is its owner or an admin. Otherwise 403.
+- `canChange($user)`: only the owner or an admin may edit or delete a dream.
+
+Pattern pages only list public dreams. Comments can only be posted on dreams you're allowed to see. Dreams can only be modified or deleted if you are allowed to change.
+
+### Routes (as built)
+
+Public:
+- `home`: welcome page with login and sign-up
+- `dreams.index`: all public dreams
+- `dreams.show`: one dream, with its patterns and comments
+- `patterns.index`, `patterns.show`: all patterns, and the public dreams per pattern
+- login and register (from Laravel Breeze)
+
+Logged in:
+- `dashboard`: your own dreams. Admins see every dream, including private ones.
+- Dream CRUD: `dreams.create`, `dreams.store`, `dreams.edit`, `dreams.update`, `dreams.destroy`. Together with index and show, that's all seven.
+- `comments.store`: post a comment on a dream
+- profile pages (from Laravel Breeze)
+
+All input from forms is validated, and errors are shown next to the fields.
+
+### Changes from the plan
+
+- **Dreams can be edited after all.** The plan said "written once", but the course requires a full CRUD with all 7 methods. Dream was the most obvious to be used for all cruds.
+- **No `my.` prefix.** The dream routes are the same for everyone; logging in unlocks more. The "my dreams" view became the dashboard.
+- **No separate admin area.** Instead, one dashboard that shows admins every dream, and admins can edit or delete any dream through the same pages.
+
+### AI Tooling
+Claude was used throughout to coach and sparr, thus some parts of the code include structures, args, functions we may not have discussed in class. All code in main branch can be explained, in passages of reliance on generated code comments will indicate the use. Overall there is one commit that was a full "generated" committ. This was to spare my manual labor. In addition to that, the secondary branch is a vibecoded design version for better visuals. 
+
+
+------------------------ORIGINAL READ ME below this line -------------------------------
+
+
 
 ### Models and Rleations
 
