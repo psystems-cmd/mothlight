@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $admin = User::factory()->create([
             'name' => 'Mia Maria',
             'email' => 'mia@mothlight.test',
             'password' => 'Password3000',
@@ -31,12 +31,21 @@ class DatabaseSeeder extends Seeder
 
         $dreams = Dream::factory()->count(15)->create();
 
+        //admin has dreams as well
+        $adminDreams = Dream::factory()->count(5)->create(
+            ['user_id' => $admin->id,]
+        );
+
         
         foreach ($dreams as $currentDream) {
             $patternIds = Pattern::inRandomOrder()->take(random_int(1,3))->pluck('id');
             $currentDream -> patterns()->attach($patternIds);
         };
 
+        foreach ($adminDreams as $currentDream) {
+            $patternIds = Pattern::inRandomOrder()->take(random_int(1,3))->pluck('id');
+            $currentDream -> patterns()->attach($patternIds);
+        };
         
 
 

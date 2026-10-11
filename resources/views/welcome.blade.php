@@ -23,13 +23,17 @@
 
     <div>
         
-        <x-breeze.primary-button>
-            Login
-        </x-breeze.primary-button>
+        <a href="{{ route('login') }}">
+            <x-breeze.primary-button>
+                Login
+            </x-breeze.primary-button>
+        </a>
 
-        <x-breeze.secondary-button>
-            Signup
-        </x-breeze.secondary-button>
+        <a href="{{ route('register') }}">
+            <x-breeze.secondary-button>
+                Signup
+            </x-breeze.secondary-button>
+        </a>
 
     </div>
 
