@@ -1,3 +1,7 @@
+@extends('layouts.public')
+
+@section('content')
+
 <h1> Dream Pattern Details </h1>
 
 <h2>
@@ -20,3 +24,4 @@
         @endforeach
     </ul>
 </div>
+@endsection

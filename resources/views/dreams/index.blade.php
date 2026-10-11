@@ -1,3 +1,7 @@
+@extends('layouts.public')
+
+@section('content')
+
 <h1>
     Dreams
 </h1>
@@ -12,3 +16,4 @@
         
     @endforeach
 </ul>
+@endsection

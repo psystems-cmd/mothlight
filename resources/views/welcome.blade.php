@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.public')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Welcome</title>
-
-<body>
+@section('content')
 
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
     <!-- next div was created by AI-->
@@ -40,5 +33,4 @@
 
 </div>
 
-</body>
-</html>
+@endsection

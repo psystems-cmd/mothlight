@@ -1,3 +1,7 @@
+@extends('layouts.public')
+
+@section('content')
+
 <h1>New dream</h1>
 
 <form method="POST" action="{{ route('dreams.store') }}">
@@ -55,3 +59,4 @@
 
     <button type="submit">Save dream</button>
 </form>
+@endsection

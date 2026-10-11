@@ -1,3 +1,7 @@
+@extends('layouts.public')
+
+@section('content')
+
 <h1>
     {{ $dreamDetails->title }}
 </h1>
@@ -38,3 +42,4 @@
 
     @endif
 @endauth
+@endsection

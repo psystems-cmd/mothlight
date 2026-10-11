@@ -1,3 +1,7 @@
+@extends('layouts.public')
+
+@section('content')
+
 <h1>Edit dream</h1>
 
 <form method="POST" action="{{ route('dreams.update', $dreamDetails->id) }}">
@@ -57,3 +61,4 @@
 
     <button type="submit">Save changes</button>
 </form>
+@endsection
