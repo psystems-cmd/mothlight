@@ -41,4 +41,36 @@ class DreamController extends Controller
                 'patterns' => $patterns,
             ]);
         }
+
+
+        public function store(Request $request)
+        {
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'tldr' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'dreamt_at' => ['required', 'date', 'before_or_equal:now'],
+            'woke_after' => ['nullable', 'boolean'],
+            'is_public' => ['nullable', 'boolean'],
+            'patterns' => ['nullable', 'array'],
+            'patterns.*' => ['integer', 'exists:patterns,id'],
+        ]);
+
+        $dream = Dream::create([
+            'title' => $request->input('title'),
+            'tldr' => $request->input('tldr'),
+            'description' => $request->input('description'),
+            'dreamt_at' => $request->input('dreamt_at'),
+            'woke_after' => $request->boolean('woke_after'),
+            'is_public' => $request->boolean('is_public'),
+            'user_id' => auth()->user()->id,
+        ]);
+
+        $dream->patterns()->sync($request->input('patterns', []));
+
+        return redirect()->route('dreams.show', $dream->id);
+    }
+
+
+
 }
