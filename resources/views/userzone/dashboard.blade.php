@@ -1,36 +1,27 @@
+{{-- Design branch: generated with Claude (AI). --}}
 @extends('layouts.public')
 
-@section('content')
+@section('title', 'My dreams · Mothlight')
 
-    <h1>Hello, {{ auth()->user()->name }}</h1>
+@section('content')
+    <h1 class="font-display text-4xl tracking-tight text-dust sm:text-5xl">Hello, {{ auth()->user()->name }}</h1>
 
     @if (auth()->user()->is_admin)
-        <p>You're an admin, so you see every dream here, including private ones.</p>
+        <p class="mt-3 max-w-md text-haze">You're an admin, so you see every dream here, including private ones.</p>
     @else
-        <p>These are your dreams. Only you can see the private ones.</p>
+        <p class="mt-3 max-w-md text-haze">These are your dreams. Only you can see the private ones.</p>
     @endif
 
-    <!--from here everythong is for all users -->
-
-    <p><a href="{{ route('dreams.create') }}">New dream</a></p>
-
     @if ($dreams->isEmpty())
-        <p>No dreams yet. Write down your first one.</p>
+        <x-moth.panel class="mt-12">
+            <p class="text-dust">No dreams yet.</p>
+            <a href="{{ route('dreams.create') }}" class="mt-5 inline-flex rounded-full bg-lamp px-6 py-3 font-medium text-night shadow-[0_0_32px_rgba(255,200,97,0.35)] hover:bg-[#FFD685]">Write down your first one</a>
+        </x-moth.panel>
     @else
-        <ul>
+        <ul class="mt-12">
             @foreach ($dreams as $currentDream)
-                <li>
-                    <a href="{{ route('dreams.show', $currentDream->id) }}">{{ $currentDream->title }}</a>
-                    ({{ $currentDream->dreamt_at->format('j F, H:i') }},
-                    @if ($currentDream->is_public)
-                        public)
-                    @else
-                        private)
-                    @endif
-                    - {{ $currentDream->user->name }}
-                </li>
+                <x-dream-item :dream="$currentDream" :show-privacy="true" />
             @endforeach
         </ul>
     @endif
-
 @endsection

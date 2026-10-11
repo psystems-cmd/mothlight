@@ -1,30 +1,27 @@
+{{-- Design branch: generated with Claude (AI). --}}
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+    <x-moth.heading title="Check your inbox">
+        We sent you an email with a link. Click it to confirm your address, then come back here. No email? We can send a new one.
+    </x-moth.heading>
 
     @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-        </div>
+        <x-moth.status class="mt-6" :status="__('A new link is on its way to the email address you signed up with.')" />
     @endif
 
-    <div class="mt-4 flex items-center justify-between">
+    <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
 
-            <div>
-                <x-breeze.primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-breeze.primary-button>
-            </div>
+            <x-moth.button>
+                {{ __('Send a new link') }}
+            </x-moth.button>
         </form>
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
+            <button type="submit" class="rounded-sm text-sm text-haze underline decoration-haze/40 underline-offset-4 transition hover:text-dust hover:decoration-dust focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lamp">
+                {{ __('Log out') }}
             </button>
         </form>
     </div>

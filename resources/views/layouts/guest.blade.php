@@ -1,31 +1,33 @@
 <!DOCTYPE html>
+{{-- Design branch: generated with Claude (AI). --}}
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Mothlight') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    @include('layouts.partials.theme')
+</head>
+<body class="min-h-screen bg-night font-sans text-dust antialiased selection:bg-lamp selection:text-night">
 
-        <!-- Tailwind CSS & Alpine.js via CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js"></script>
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-breeze.application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    {{-- Same lamp and moths as on the public pages --}}
+    <x-moth-sky />
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div class="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-5 sm:px-8">
+        <header class="py-6">
+            <x-wordmark />
+        </header>
+
+        <main class="flex flex-1 items-center py-10">
+            <div class="w-full max-w-md rounded-3xl border border-haze/15 bg-dusk/40 p-7 shadow-[0_0_60px_rgba(110,72,190,0.25)] backdrop-blur-md sm:p-10">
                 {{ $slot }}
             </div>
-        </div>
-    </body>
+        </main>
+
+        <x-footer />
+    </div>
+
+</body>
 </html>

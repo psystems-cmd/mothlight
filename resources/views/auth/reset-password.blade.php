@@ -1,5 +1,8 @@
+{{-- Design branch: generated with Claude (AI). --}}
 <x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
+    <x-moth.heading title="Choose a new password" />
+
+    <form method="POST" action="{{ route('password.store') }}" class="mt-8 space-y-5">
         @csrf
 
         <!-- Password Reset Token -->
@@ -7,33 +10,29 @@
 
         <!-- Email Address -->
         <div>
-            <x-breeze.input-label for="email" :value="__('Email')" />
-            <x-breeze.text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-breeze.input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-moth.label for="email" :value="__('Email')" />
+            <x-moth.input id="email" class="mt-1.5" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
+            <x-moth.error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-breeze.input-label for="password" :value="__('Password')" />
-            <x-breeze.text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-breeze.input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <x-moth.label for="password" :value="__('New password')" />
+            <x-moth.input id="password" class="mt-1.5" type="password" name="password" required autocomplete="new-password" />
+            <x-moth.error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-breeze.input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-breeze.text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-breeze.input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div>
+            <x-moth.label for="password_confirmation" :value="__('Confirm new password')" />
+            <x-moth.input id="password_confirmation" class="mt-1.5" type="password" name="password_confirmation" required autocomplete="new-password" />
+            <x-moth.error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-breeze.primary-button>
-                {{ __('Reset Password') }}
-            </x-breeze.primary-button>
+        <div class="flex justify-end pt-2">
+            <x-moth.button>
+                {{ __('Save new password') }}
+            </x-moth.button>
         </div>
     </form>
 </x-guest-layout>

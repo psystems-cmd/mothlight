@@ -1,7 +1,8 @@
+{{-- Design branch: recoloured for the dark theme with Claude (AI). --}}
 @props(['messages'])
 
 @if ($messages)
-    <ul {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1']) }}>
+    <ul {{ $attributes->merge(['class' => 'space-y-1 text-sm text-ember']) }}>
         @foreach ((array) $messages as $message)
             <li>{{ $message }}</li>
         @endforeach

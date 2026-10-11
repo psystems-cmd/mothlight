@@ -1,52 +1,48 @@
+{{-- Design branch: generated with Claude (AI). --}}
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <x-moth.heading title="Join Mothlight">
+        Keep a private dream journal, and share the dreams you want to.
+    </x-moth.heading>
+
+    <form method="POST" action="{{ route('register') }}" class="mt-8 space-y-5">
         @csrf
 
         <!-- Name -->
         <div>
-            <x-breeze.input-label for="name" :value="__('Name')" />
-            <x-breeze.text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-breeze.input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-moth.label for="name" :value="__('Name')" />
+            <x-moth.input id="name" class="mt-1.5" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-moth.error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
-        <div class="mt-4">
-            <x-breeze.input-label for="email" :value="__('Email')" />
-            <x-breeze.text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-breeze.input-error :messages="$errors->get('email')" class="mt-2" />
+        <div>
+            <x-moth.label for="email" :value="__('Email')" />
+            <x-moth.input id="email" class="mt-1.5" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-moth.error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-breeze.input-label for="password" :value="__('Password')" />
-
-            <x-breeze.text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-breeze.input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <x-moth.label for="password" :value="__('Password')" />
+            <x-moth.input id="password" class="mt-1.5" type="password" name="password" required autocomplete="new-password" />
+            <x-moth.error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-breeze.input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-breeze.text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-breeze.input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div>
+            <x-moth.label for="password_confirmation" :value="__('Confirm password')" />
+            <x-moth.input id="password_confirmation" class="mt-1.5" type="password" name="password_confirmation" required autocomplete="new-password" />
+            <x-moth.error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+            <x-moth.link href="{{ route('login') }}">
+                {{ __('Already have an account?') }}
+            </x-moth.link>
 
-            <x-breeze.primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-breeze.primary-button>
+            <x-moth.button>
+                {{ __('Sign up') }}
+            </x-moth.button>
         </div>
     </form>
 </x-guest-layout>

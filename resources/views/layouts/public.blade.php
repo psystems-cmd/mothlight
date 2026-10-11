@@ -1,55 +1,51 @@
 <!DOCTYPE html>
+{{-- Design branch: generated with Claude (AI). --}}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Mothlight')</title>
 
-    <style type="text/tailwindcss">
-    @layer base {
-        body   { @apply bg-orange-50 text-gray-900; }
-        h1     { @apply text-3xl font-bold mt-6 mb-4; }
-        h2     { @apply text-xl font-semibold mt-6 mb-2; }
-        a      { @apply text-violet-700 underline; }
-        button { @apply bg-violet-600 text-white px-4 py-2 rounded; }
-        input, textarea { @apply border rounded px-2 py-1 w-full; }
-        label  { @apply block mt-4 font-medium; }
-        }
-    </style>
-
+    @include('layouts.partials.theme')
 </head>
-<body class="bg-orange-50 text-gray-900">
+<body class="min-h-screen bg-night font-sans text-dust antialiased selection:bg-lamp selection:text-night">
 
-    <header>
-        <nav class="flex gap-4 p-4 border-b">
-            <a href="{{ route('home') }}">Mothlight</a> |
-            <a href="{{ route('dreams.index') }}">Dreams</a> |
-            <a href="{{ route('patterns.index') }}">Patterns</a> |
+    {{-- The glowing lamp and the moths circling it, behind all page content --}}
+    <x-moth-sky />
 
-            @auth
-                <a href="{{ route('dashboard') }}">My dreams</a> |
-                <a href="{{ route('dreams.create') }}">New dream</a> |
-                <a href="{{ route('profile.edit') }}">Profile</a> |
+    <div class="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-5 sm:px-8">
 
-                <form method="POST" action="{{ route('logout') }}" style="display: inline">
-                    @csrf
-                    <button type="submit">Log out</button>
-                </form>
-            @else
-                <a href="{{ route('login') }}">Log in</a> |
-                <a href="{{ route('register') }}">Sign up</a>
-            @endauth
-        </nav>
-    </header>
+        <header class="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-6">
+            <x-wordmark />
 
-    <main class="max-w-3xl mx-auto p-6">
-        @yield('content')
-    </main>
+            <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+                <a href="{{ route('dreams.index') }}" @if (request()->routeIs('dreams.index', 'dreams.show')) aria-current="page" @endif class="rounded-sm text-haze hover:text-dust aria-[current=page]:text-lamp">Dreams</a>
+                <a href="{{ route('patterns.index') }}" @if (request()->routeIs('patterns.*')) aria-current="page" @endif class="rounded-sm text-haze hover:text-dust aria-[current=page]:text-lamp">Patterns</a>
 
-    <footer>
-        <p>Mothlight, a dream journal for friend groups.</p>
-    </footer>
+                @auth
+                    <a href="{{ route('dashboard') }}" @if (request()->routeIs('dashboard')) aria-current="page" @endif class="rounded-sm text-haze hover:text-dust aria-[current=page]:text-lamp">My dreams</a>
+                    <a href="{{ route('profile.edit') }}" @if (request()->routeIs('profile.*')) aria-current="page" @endif class="rounded-sm text-haze hover:text-dust aria-[current=page]:text-lamp">Profile</a>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="rounded-sm text-haze hover:text-dust">Log out</button>
+                    </form>
+
+                    <a href="{{ route('dreams.create') }}" class="rounded-full bg-lamp px-4 py-1.5 font-medium text-night shadow-[0_0_24px_rgba(255,200,97,0.35)] hover:bg-[#FFD685]">New dream</a>
+                @else
+                    <a href="{{ route('login') }}" class="rounded-sm text-haze hover:text-dust aria-[current=page]:text-lamp">Log in</a>
+                    <a href="{{ route('register') }}" class="rounded-full border border-lamp/40 px-4 py-1.5 text-lamp hover:bg-lamp/10">Sign up</a>
+                @endauth
+            </nav>
+        </header>
+
+        <main class="flex-1 pb-20 pt-10 sm:pt-14">
+            @yield('content')
+        </main>
+
+        <x-footer />
+    </div>
 
 </body>
 </html>

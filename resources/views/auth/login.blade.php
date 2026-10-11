@@ -1,47 +1,50 @@
+{{-- Design branch: generated with Claude (AI). --}}
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-breeze.auth-session-status class="mb-4" :status="session('status')" />
+    <x-moth.heading title="Welcome back">
+        Log in to read and write your dreams.
+    </x-moth.heading>
 
-    <form method="POST" action="{{ route('login') }}">
+    <!-- Session Status -->
+    <x-moth.status class="mt-6" :status="session('status')" />
+
+    <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-5">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-breeze.input-label for="email" :value="__('Email')" />
-            <x-breeze.text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-breeze.input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-moth.label for="email" :value="__('Email')" />
+            <x-moth.input id="email" class="mt-1.5" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-moth.error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-breeze.input-label for="password" :value="__('Password')" />
-
-            <x-breeze.text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-breeze.input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <x-moth.label for="password" :value="__('Password')" />
+            <x-moth.input id="password" class="mt-1.5" type="password" name="password" required autocomplete="current-password" />
+            <x-moth.error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+        <label for="remember_me" class="flex items-center gap-2.5 text-sm text-haze">
+            <input id="remember_me" type="checkbox" name="remember" class="h-4 w-4 accent-lamp">
+            {{ __('Remember me') }}
+        </label>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                <x-moth.link href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
-                </a>
+                </x-moth.link>
             @endif
 
-            <x-breeze.primary-button class="ms-3">
+            <x-moth.button>
                 {{ __('Log in') }}
-            </x-breeze.primary-button>
+            </x-moth.button>
         </div>
     </form>
+
+    <p class="mt-8 border-t border-haze/15 pt-6 text-sm text-haze">
+        New here?
+        <x-moth.link href="{{ route('register') }}">Sign up</x-moth.link>
+    </p>
 </x-guest-layout>

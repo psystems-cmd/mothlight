@@ -1,27 +1,23 @@
+{{-- Design branch: generated with Claude (AI). --}}
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
-    </div>
+    <x-moth.heading title="Confirm your password">
+        This part of Mothlight needs your password once more before you continue.
+    </x-moth.heading>
 
-    <form method="POST" action="{{ route('password.confirm') }}">
+    <form method="POST" action="{{ route('password.confirm') }}" class="mt-8 space-y-5">
         @csrf
 
         <!-- Password -->
         <div>
-           breeze. <x-breeze.input-label for="password" :value="__('Password')" />
-
-            <x-breeze.text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-breeze.input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-moth.label for="password" :value="__('Password')" />
+            <x-moth.input id="password" class="mt-1.5" type="password" name="password" required autocomplete="current-password" />
+            <x-moth.error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <div class="flex justify-end mt-4">
-            <x-breeze.primary-button>
+        <div class="flex justify-end pt-2">
+            <x-moth.button>
                 {{ __('Confirm') }}
-            </x-breeze.primary-button>
+            </x-moth.button>
         </div>
     </form>
 </x-guest-layout>

@@ -1,27 +1,29 @@
+{{-- Design branch: generated with Claude (AI). --}}
 @extends('layouts.public')
 
+@section('title', 'Profile · Mothlight')
+
 @section('content')
+    <h1 class="font-display text-4xl tracking-tight text-dust sm:text-5xl">Profile</h1>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('userzone.profile.partials.update-profile-information-form')
-                </div>
+    {{-- The three forms come from Laravel Breeze; the [&_...] classes recolour their text for the dark theme --}}
+    <div class="mt-10 space-y-6 [&_h2]:font-display [&_h2]:text-xl [&_h2]:text-dust [&_p]:text-haze [&_label]:text-haze">
+        <x-moth.panel>
+            <div class="max-w-xl">
+                @include('userzone.profile.partials.update-profile-information-form')
             </div>
+        </x-moth.panel>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('userzone.profile.partials.update-password-form')
-                </div>
+        <x-moth.panel>
+            <div class="max-w-xl">
+                @include('userzone.profile.partials.update-password-form')
             </div>
+        </x-moth.panel>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('userzone.profile.partials.delete-user-form')
-                </div>
+        <x-moth.panel>
+            <div class="max-w-xl">
+                @include('userzone.profile.partials.delete-user-form')
             </div>
-        </div>
+        </x-moth.panel>
     </div>
-
 @endsection

@@ -1,23 +1,24 @@
+{{-- Design branch: generated with Claude (AI). --}}
 @extends('layouts.public')
 
+@section('title', 'Dream patterns · Mothlight')
+
 @section('content')
+    <h1 class="font-display text-4xl tracking-tight text-dust sm:text-5xl">Dream patterns</h1>
+    <p class="mt-3 max-w-md text-haze">Things that keep coming back in people's dreams. Open one to read the dreams that share it.</p>
 
-<h1>Dream patterns</h1>
-
-
-@if ($patterns->isEmpty())
-    <p>No patterns found.</p>
-    
-@else    
-    <ul> 
-        @foreach ($patterns as $currentPattern)
-            <x-breeze.pattern-card>
-                <a href="/patterns/{{ $currentPattern->id }}">
-                    {{ $currentPattern->name }}
-                </a>
-            </x-breeze.pattern-card>
-        @endforeach
-    </ul> 
-@endif
-
+    @if ($patterns->isEmpty())
+        <p class="mt-12 text-haze">No patterns found.</p>
+    @else
+        <ul class="mt-12 flex flex-wrap gap-3">
+            @foreach ($patterns as $currentPattern)
+                <x-breeze.pattern-card>
+                    <a href="{{ route('patterns.show', $currentPattern->id) }}"
+                       class="block rounded-full border border-lamp/30 px-5 py-2.5 text-dust hover:border-lamp hover:bg-lamp/10 hover:shadow-[0_0_24px_rgba(255,200,97,0.25)]">
+                        {{ $currentPattern->name }}
+                    </a>
+                </x-breeze.pattern-card>
+            @endforeach
+        </ul>
+    @endif
 @endsection
