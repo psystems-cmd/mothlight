@@ -10,6 +10,8 @@ class Dream extends Model
     /** @use HasFactory<\Database\Factories\DreamFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+
     public function patterns(){
         return ($this->belongsToMany(Pattern::class));
     }
