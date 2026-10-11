@@ -10,7 +10,15 @@ class Dream extends Model
     /** @use HasFactory<\Database\Factories\DreamFactory> */
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = []; //for the mass assignment to clean pass as the store passes piece by piece
+
+        // Claude:: Turn dreamt_at into a real date, so views can format it
+    protected function casts(): array
+    {
+        return [
+            'dreamt_at' => 'datetime',
+        ];
+    }
 
     public function patterns(){
         return ($this->belongsToMany(Pattern::class));
@@ -41,6 +49,20 @@ class Dream extends Model
 
         return false;
     }
+
+    //functional check as only the owner or an admin may edit or delete a dream
+public function canChange(User $user): bool
+{
+    if ($user->id === $this->user_id) {
+        return true;
+    }
+
+    if ($user->is_admin) {
+        return true;
+    }
+
+    return false;
+}
 
 
 
