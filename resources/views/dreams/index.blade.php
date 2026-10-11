@@ -5,7 +5,9 @@
 <ul>
     @foreach ($dreams as $currentDream)
         <li>
+            <a href="{{ route('dreams.show', $currentDream->id) }}">
             {{ $currentDream->title }}
+            </a>
         </li>
         
     @endforeach

@@ -9,7 +9,13 @@
                     {{-- $dream has no () bc it is not called as a function but as an object --}}
 
         @foreach ($dreams as $dream)
-            <li>{{ $dream->title }}</li> 
+
+        <li>
+            <a href="{{ route('dreams.show', $dream->id) }}">  
+                {{ $dream->title }}
+            </a>    
+        </li> 
+        
         
         @endforeach
     </ul>

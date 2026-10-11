@@ -6,7 +6,7 @@
     {{ $dreamDetails->dreamt_at }}
 
 
-<span>Patterns</span>
+<h2>Patterns</h2>
     <ul>
         @foreach ($dreamDetails->patterns as $currentPattern)
             <li>
