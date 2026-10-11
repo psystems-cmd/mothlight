@@ -27,8 +27,15 @@ class DreamController extends Controller
     {
         $dream = Dream::findOrFail($dreamID);
 
+        if (! $dream->isVisibleTo(auth()->user())) {
+            abort(403);
+            };
+
         return view('dreams.show', [
             'dreamDetails' => $dream,
         ]);
+
+
+
     }
 }
