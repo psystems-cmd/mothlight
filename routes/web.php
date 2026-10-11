@@ -18,6 +18,17 @@ Route::get('/', [WelcomeController::class, 'index'])
     ->name('home'); //gives an internal nickname to reference from now on for this speific route
 
 
+//fmi.Everything in this is only for logged-in users. Everybody else gets kicked or bumped. 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::get('/dreams/create', [App\Http\Controllers\DreamController::class, 'create'])->name('dreams.create');
+    Route::post('/dreams', [App\Http\Controllers\DreamController::class, 'store'])->name('dreams.store');
+});
+
+
 
 Route::get('/patterns', [PatternController::class, 'index'])
     ->name('patterns.index'); //gives an internal nickname to reference from now on for this speific route
@@ -34,11 +45,5 @@ Route::get('/dreams/{dreamID}', [DreamController::class, 'show'])->name('dreams.
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';

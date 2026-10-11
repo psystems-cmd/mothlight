@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dream;
+use App\Models\Pattern; //to allow the select of patterns when creating a new dream
 
 class DreamController extends Controller
 {
@@ -17,12 +18,6 @@ class DreamController extends Controller
         ]);
     }
 
-
-
-
-
-
-
     public function show($dreamID)
     {
         $dream = Dream::findOrFail($dreamID);
@@ -35,7 +30,15 @@ class DreamController extends Controller
             'dreamDetails' => $dream,
         ]);
 
-
-
     }
+
+
+        public function create()
+        {
+            $patterns = Pattern::orderBy('name')->get();
+
+            return view('dreams.create', [
+                'patterns' => $patterns,
+            ]);
+        }
 }
