@@ -42,4 +42,19 @@
 
     @endif
 @endauth
+
+<h2>Comments</h2>
+
+@forelse ($dreamDetails->comments as $currentComment)
+    <div>
+        <p>
+            <strong>{{ $currentComment->user->name }}</strong>,
+            {{ $currentComment->created_at->format('j F, H:i') }}
+        </p>
+        <p>{{ $currentComment->content }}</p>
+    </div>
+@empty
+    <p>No comments yet.</p>
+@endforelse
+
 @endsection
