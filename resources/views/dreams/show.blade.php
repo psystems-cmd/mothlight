@@ -23,3 +23,18 @@
     {{ $dreamDetails->tldr }}
     {{ $dreamDetails->description }}
 </div>
+
+@auth
+    @if ($dreamDetails->canChange(auth()->user()))
+        <a href="{{ route('dreams.edit', $dreamDetails->id) }}">Edit</a>
+
+        <form method="POST" action="{{ route('dreams.destroy', $dreamDetails->id) }}"
+      onsubmit="return confirm('Delete this dream? This cannot be undone.')">
+    @csrf
+    @method('DELETE')
+    <button type="submit">Delete</button>
+</form>
+
+
+    @endif
+@endauth
