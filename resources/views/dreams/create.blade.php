@@ -1,5 +1,4 @@
 @extends('layouts.public')
-
 @section('content')
 
 <h1>New dream</h1>
@@ -59,4 +58,6 @@
 
     <button type="submit">Save dream</button>
 </form>
+
+
 @endsection

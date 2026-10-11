@@ -24,6 +24,13 @@ class DatabaseSeeder extends Seeder
             'password' => 'Password3000',
             'is_admin' => true
         ]);
+
+        $evalAdmin = User::factory()->create ([
+            'name' => 'Master Nico the Blue',
+            'email' => 'admin@admin.com',
+            'password' => 'password',
+            'is_admin' => true
+        ]);
     
         User::factory(10)->create();
 
