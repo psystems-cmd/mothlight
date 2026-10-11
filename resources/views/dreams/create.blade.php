@@ -44,8 +44,9 @@
                 <legend class="text-sm font-medium text-haze">Patterns</legend>
                 <div class="mt-3 flex flex-wrap gap-2.5">
                     @foreach ($patterns as $currentPattern)
-                        <label class="flex cursor-pointer items-center gap-2 rounded-full border border-haze/25 px-4 py-2 text-sm text-dust has-[:checked]:border-lamp has-[:checked]:bg-lamp/10 has-[:checked]:text-lamp">
-                            <input type="checkbox" name="patterns[]" value="{{ $currentPattern->id }}" class="h-3.5 w-3.5 accent-lamp"
+                        <label style="--accent: {{ $currentPattern->accentHex() }}"
+                               class="pill-pick flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm text-dust">
+                            <input type="checkbox" name="patterns[]" value="{{ $currentPattern->id }}" class="h-3.5 w-3.5"
                                    @checked(in_array($currentPattern->id, old('patterns', [])))>
                             {{ $currentPattern->name }}
                         </label>

@@ -9,7 +9,10 @@ class PatternController extends Controller
 {
     public function index()
     {
-        $patterns = Pattern::all(); //this is basically SELET * FROM patterns in SQL; givies it to the function index to use
+        //Claude:: count only the public dreams, so a private dream never shows up in a total
+        $patterns = Pattern::withCount(['dreams' => function ($query) {
+            $query->where('is_public', true);
+        }])->orderBy('name')->get();
 
         return view('patterns.index', [
             'patterns' => $patterns,
@@ -19,7 +22,7 @@ class PatternController extends Controller
     public function show($patternID)
     {
         $pattern = Pattern::findOrFail($patternID);
-        $dreams = $pattern->dreams()->where('is_public', true)->get();
+        $dreams = $pattern->dreams()->with('patterns')->where('is_public', true)->latest('dreamt_at')->get();
 
         return view('patterns.show', [
             'patternDetails' => $pattern,

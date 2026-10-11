@@ -16,10 +16,10 @@
 
     <div class="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col px-5 sm:px-8">
 
-        <header class="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-6">
+        <header class="flex flex-col items-center gap-5 py-7">
             <x-wordmark />
 
-            <nav class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            <nav class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
                 <a href="{{ route('dreams.index') }}" @if (request()->routeIs('dreams.index', 'dreams.show')) aria-current="page" @endif class="rounded-sm text-haze hover:text-dust aria-[current=page]:text-lamp">Dreams</a>
                 <a href="{{ route('patterns.index') }}" @if (request()->routeIs('patterns.*')) aria-current="page" @endif class="rounded-sm text-haze hover:text-dust aria-[current=page]:text-lamp">Patterns</a>
 

@@ -12,7 +12,7 @@ class DreamController extends Controller
 
     public function index()
     {
-        $dreams = Dream::where('is_public', true)->get(); 
+        $dreams = Dream::with('patterns')->where('is_public', true)->latest('dreamt_at')->get(); 
         return view('dreams.index', [
             'dreams' => $dreams,
         ]);
