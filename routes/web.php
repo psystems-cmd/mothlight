@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatternController;
 use App\Http\Controllers\DreamController;
-
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\DashboardController;
+/*
 Route::get('/', function () {
     return view('welcome');
 });
@@ -11,6 +13,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('userzone.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+*/
+Route::get('/', [WelcomeController::class, 'index'])
+    ->name('home'); //gives an internal nickname to reference from now on for this speific route
 
 
 
@@ -24,6 +29,7 @@ Route::get('/patterns/{patternID}', [PatternController::class, 'show'])
 Route::get('/dreams', [DreamController::class, 'index'])
     ->name('dreams.index'); //gives an internal nickname to reference from now on for this speific route
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
