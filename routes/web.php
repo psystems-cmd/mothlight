@@ -29,6 +29,8 @@ Route::get('/patterns/{patternID}', [PatternController::class, 'show'])
 Route::get('/dreams', [DreamController::class, 'index'])
     ->name('dreams.index'); //gives an internal nickname to reference from now on for this speific route
 
+Route::get('/dreams/{dreamID}', [DreamController::class, 'show'])->name('dreams.show');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
